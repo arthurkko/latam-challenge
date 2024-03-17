@@ -2,7 +2,6 @@ from typing import List, Tuple
 from datetime import datetime
 import json
 import pandas as pd
-import datetime
 import sys
 from memory_profiler import profile
 
@@ -22,7 +21,7 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
     del data_list
 
     # Transform the values in the columns
-    df_q1["date"] = df_q1.apply(lambda x: datetime.datetime.strptime(x.date, "%Y-%m-%dT%H:%M:%S%z").date(), axis=1)
+    df_q1["date"] = df_q1.apply(lambda x: datetime.strptime(x.date, "%Y-%m-%dT%H:%M:%S%z").date(), axis=1)
     df_q1["user"] = df_q1.apply(lambda x: x.user["username"], axis=1)
 
     # Most tweeted dates
