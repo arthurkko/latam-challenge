@@ -2,6 +2,7 @@ from typing import List, Tuple
 from datetime import datetime
 import json
 import pandas as pd
+import sys
 
 from utils.extract_json import extract_json
 
@@ -40,3 +41,7 @@ def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
     del user
 
     return q1_result
+
+if __name__=="__main__":
+    file_path = sys.argv[1]
+    q1_time(file_path)
