@@ -9,19 +9,10 @@ from memory_profiler import profile
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
 
     # Get data from json file
-    with open(file_path, 'r') as file:
-        data_list = []
-        for line in file:
-            object_json = json.loads(line)
-            data_list.append(object_json)
-    del object_json
-
-    # Transform it in a dataframe
-    df_q1 = pd.DataFrame(data_list)[["date", "user"]]
-    del data_list
+    df_q1 = pd.read_json(file_path, lines=True)[["date", "user"]]
 
     # Transform the values in the columns
-    df_q1["date"] = df_q1.apply(lambda x: datetime.strptime(x.date, "%Y-%m-%dT%H:%M:%S%z").date(), axis=1)
+    df_q1["date"] = df_q1['date'].dt.date
     df_q1["user"] = df_q1.apply(lambda x: x.user["username"], axis=1)
 
     # Most tweeted dates
