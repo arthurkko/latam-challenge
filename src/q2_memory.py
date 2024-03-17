@@ -6,7 +6,7 @@ import emoji
 from utils.extract_json import extract_json
 from utils.find_top10 import find_top10
 from utils.df_to_list import df_to_list
-
+from utils.dict_to_df import dict_to_df
 from memory_profiler import profile
 
 @profile
@@ -27,10 +27,12 @@ def q2_memory(file_path: str) -> List[Tuple[str, int]]:
                 emoji_dict[emj] += 1
             else:
                 emoji_dict[emj] = 1
+    del emj
+    del emojis
     del emoji_list
     
     # Dict -> Dataframe
-    df_emoji = pd.DataFrame.from_dict(emoji_dict, orient="index", columns=["count"])
+    df_emoji = dict_to_df(emoji_dict, ["count"])
     del emoji_dict
 
     # Top 10 in dataframe form
