@@ -1,6 +1,7 @@
+from typing import List
 import pandas as pd
 
-def extract_json(file_path: str, col: list = None) -> pd.DataFrame:
+def extract_json(file_path: str, col: List[str] = None) -> pd.DataFrame:
     
     """
     Extract JSON data from a file into a DataFrame.
@@ -14,8 +15,8 @@ def extract_json(file_path: str, col: list = None) -> pd.DataFrame:
     """
 
     if col is None:
-        df = pd.read_json(file_path, lines=True)
+        df = pd.read_json(file_path, lines=True).dropna()
     else:
-        df = pd.read_json(file_path, lines=True)[col]
+        df = pd.read_json(file_path, lines=True)[col].dropna()
 
     return df
