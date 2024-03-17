@@ -3,14 +3,17 @@ from datetime import datetime
 import json
 import pandas as pd
 import sys
+
+from utils.extract_json import extract_json
+
 from memory_profiler import profile
 
 @profile
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
 
     # Get data from json file
-    df_q1 = pd.read_json(file_path, lines=True)[["date", "user"]]
-
+    df_q1 = extract_json(file_path=file_path, col=["date", "user"])
+    
     # Transform the values in the columns
     df_q1["date"] = df_q1['date'].dt.date
     df_q1["user"] = df_q1.apply(lambda x: x.user["username"], axis=1)

@@ -3,10 +3,12 @@ from datetime import datetime
 import json
 import pandas as pd
 
+from utils.extract_json import extract_json
+
 def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
     
     # Get data from json file
-    df_q1 = pd.read_json(file_path, lines=True)[["date", "user"]]
+    df_q1 = extract_json(file_path=file_path, col=["date", "user"])
 
     # Transform the values in the columns
     df_q1["date"] = df_q1['date'].dt.date
